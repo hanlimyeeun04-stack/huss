@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>필터버블 파이터즈 설문 응답 통계</title>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; background: #f4f6fb; margin:0; padding: 20px; color: #222; }
+  h1 { font-size: 18px; color: #3b6fd4; text-align: center; margin: 4px 0 6px; }
+  .total { text-align: center; font-size: 14px; color: #666; margin-bottom: 16px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; max-width: 1100px; margin: 0 auto; }
+  .card { background: white; border-radius: 14px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .card h3 { font-size: 13px; margin: 0 0 8px; color: #444; }
+  .chart { width: 100%; height: 220px; }
+  .likert-bar { margin-bottom: 12px; }
+  .likert-label { font-size: 12.5px; margin-bottom: 4px; color: #333; }
+  .likert-track { background: #eee; border-radius: 6px; height: 10px; overflow: hidden; }
+  .likert-fill { background: #3b6fd4; height: 100%; }
+  .refresh-btn { display:block; margin: 0 auto 20px; padding: 8px 18px; border: none; border-radius: 8px; background: #3b6fd4; color: white; cursor: pointer; font-size: 13px; }
+</style>
+</head>
+<body>
+  <h1>🫧 필터버블 파이터즈 설문 응답 통계</h1>
+  <div class="total" id="totalCount">불러오는 중...</div>
+  <button class="refresh-btn" onclick="loadStats()">새로고침</button>
+  <div class="grid" id="grid"></div>
+
+<script>
+  // ▼▼ Apps Script 배포 후 나온 웹 앱 URL(.../exec)을 여기에 붙여넣으세요 (Survey.html과 동일한 값) ▼▼
+  var API_URL = 'PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
+
+  google.charts.load('current', { packages: ['corechart'] });
+  google.charts.setOnLoadCallback(loadStats);
+
+  // JSONP 방식으로 통계 요청 (CORS를 타지 않음)
+  function loadStats() {
+    document.getElementById('totalCount').textContent = '불러오는 중...';
+
+    var cbName = 'statsCallback_' + Date.now();
+    var timeoutId = setTimeout(function () {
+      document.getElementById('totalCount').textContent = '통계를 불러오지 못했습니다. API_URL을 확인해주세요.';
+      cleanup();
+    }, 8000);
+
+    function cleanup() {
+      clearTimeout(timeoutId);
+      delete window[cbName];
+      if (script.parentNode) script.parentNode.removeChild(script);
+    }
+
+    window[cbName] = function (stats) {
+      cleanup();
+      renderAll(stats);
+    };
+
+    var script = document.createElement('script');
+    script.src = API_URL + '?action=stats&callback=' + cbName;
+    script.onerror = function () {
+      document.getElementById('totalCount').textContent = '통계를 불러오는 중 오류가 발생했습니다.';
+      cleanup();
+    };
+    document.body.appendChild(script);
+  }
+
+  function renderAll(stats) {
+    document.getElementById('totalCount').textContent = '총 응답 수: ' + stats.total + '명';
+    var grid = document.getElementById('grid');
+    grid.innerHTML = '';
+
+    addPieCard(grid, '성별', stats.gender);
+    addPieCard(grid, '연령대', stats.age);
+    addPieCard(grid, '하루 평균 콘텐츠 이용 시간', stats.usageTime);
+    addBarCard(grid, '주로 이용하는 정보 채널 (복수응답)', stats.channels);
+    addBarCard(grid, "최근 1개월 '가짜뉴스로 판단' 경험 빈도", stats.q5);
+    addBarCard(grid, '어려움을 느낀 이유 (복수응답)', stats.q14);
+    addLikertCard(grid, '미디어 소비 성향 · 반박정보 탐색 장벽 (5점 평균)', stats.likertAvg);
+  }
+
+  function uid() { return 'c' + Math.random().toString(36).slice(2); }
+
+  function addPieCard(grid, title, dataObj) {
+    var card = document.createElement('div');
+    card.className = 'card';
+    var chartId = uid();
+    card.innerHTML = '<h3>' + title + '</h3><div class="chart" id="' + chartId + '"></div>';
+    grid.appendChild(card);
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'label');
+    data.addColumn('number', 'count');
+    Object.keys(dataObj).forEach(function (k) { data.addRow([k, dataObj[k]]); });
+    var chart = new google.visualization.PieChart(document.getElementById(chartId));
+    chart.draw(data, {
+      legend: { position: 'right', textStyle: { fontSize: 11 } },
+      chartArea: { width: '90%', height: '80%' },
+      colors: ['#3b6fd4', '#6ea8fe', '#a6c8ff', '#c9dcff', '#8fb8ff', '#517de0', '#2a4f9e']
+    });
+  }
+
+  function addBarCard(grid, title, dataObj) {
+    var card = document.createElement('div');
+    card.className = 'card';
+    var chartId = uid();
+    card.innerHTML = '<h3>' + title + '</h3><div class="chart" id="' + chartId + '"></div>';
+    grid.appendChild(card);
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'label');
+    data.addColumn('number', 'count');
+    Object.keys(dataObj).forEach(function (k) { data.addRow([k, dataObj[k]]); });
+    var chart = new google.visualization.BarChart(document.getElementById(chartId));
+    chart.draw(data, {
+      legend: { position: 'none' },
+      chartArea: { width: '60%', height: '80%' },
+      colors: ['#3b6fd4']
+    });
+  }
+
+  function addLikertCard(grid, title, avgObj) {
+    var card = document.createElement('div');
+    card.className = 'card';
+    card.style.gridColumn = '1 / -1';
+    var html = '<h3>' + title + '</h3>';
+    Object.keys(avgObj).forEach(function (k) {
+      var v = avgObj[k];
+      var pct = (v / 5) * 100;
+      html += '<div class="likert-bar"><div class="likert-label">' + k + ' — 평균 ' + v.toFixed(2) + '점</div>' +
+        '<div class="likert-track"><div class="likert-fill" style="width:' + pct + '%"></div></div></div>';
+    });
+    card.innerHTML = html;
+    grid.appendChild(card);
+  }
+</script>
+</body>
+</html>
