@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>20~30대 디지털 콘텐츠 소비 및 확증편향 경험 조사</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    background: #f4f6fb;
+    margin: 0;
+    padding: 0 0 60px;
+    color: #222;
+  }
+  .header {
+    background: linear-gradient(135deg, #6ea8fe, #a6c8ff);
+    color: white;
+    padding: 32px 20px 28px;
+    text-align: center;
+  }
+  .header h1 { margin: 0 auto; font-size: 19px; max-width: 480px; }
+  .header p { margin: 12px auto 0; font-size: 12.5px; opacity: 0.97; line-height: 1.7; white-space: pre-line; text-align: left; max-width: 480px; }
+  .container { max-width: 560px; margin: -14px auto 0; padding: 0 16px; }
+  .card { background: white; border-radius: 14px; padding: 20px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .section-title { font-weight: 700; font-size: 15px; color: #3b6fd4; margin: 0 0 14px; }
+  .q { margin-bottom: 22px; }
+  .q:last-child { margin-bottom: 0; }
+  .q-title { font-size: 14px; font-weight: 600; margin-bottom: 10px; line-height: 1.5; }
+  .options label { display: flex; align-items: center; gap: 8px; padding: 9px 10px; border-radius: 8px; font-size: 13.5px; cursor: pointer; }
+  .options label:hover { background: #f0f4ff; }
+  .scale-row { display: flex; justify-content: space-between; gap: 4px; }
+  .scale-item { flex: 1; text-align: center; }
+  .scale-item label { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 10.5px; color: #555; cursor: pointer; }
+  .scale-item input { width: 18px; height: 18px; }
+  .required { color: #e0507a; margin-left: 2px; }
+  .submit-btn {
+    width: 100%; padding: 14px; border: none; border-radius: 10px;
+    background: #3b6fd4; color: white; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px;
+  }
+  .submit-btn:disabled { background: #aab8d6; }
+  .thanks { text-align: center; padding: 60px 20px; }
+  .thanks h2 { color: #3b6fd4; }
+  .error { color: #e0507a; font-size: 12px; margin: 0 0 10px; text-align: center; display: none; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <h1>🫧 20~30대 디지털 콘텐츠 소비 및 확증편향 경험 조사</h1>
+    <p>안녕하세요 저희는 HUSS 인문사회 융합 캠프에 참여 중인 '필터 버블 파이터즈🫧'입니다!
+저희는 20~30대의 디지털 콘텐츠 소비 습관과 확증편향 경험을 조사 중에 있습니다.
+해당 설문의 응답은 익명으로 처리되며 인사이트 도출 목적 외에는 사용되지 않습니다. 약 3분 정도 소요됩니다.
+설문에 참여해주신 분 중 추첨을 통해 두 분께 소정의 기프티콘을 전달 드릴 예정입니다. 감사합니다!</p>
+  </div>
+
+  <div class="container" id="formWrap">
+    <div class="card">
+      <div class="section-title">Ⅰ. 응답자 기본정보</div>
+
+      <div class="q">
+        <div class="q-title">1. 성별<span class="required">*</span></div>
+        <div class="options">
+          <label><input type="radio" name="gender" value="남성">남성</label>
+          <label><input type="radio" name="gender" value="여성">여성</label>
+          <label><input type="radio" name="gender" value="응답하지 않음">응답하지 않음</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-title">2. 연령대<span class="required">*</span></div>
+        <div class="options">
+          <label><input type="radio" name="age" value="20~24">20~24</label>
+          <label><input type="radio" name="age" value="25~29">25~29</label>
+          <label><input type="radio" name="age" value="30~34">30~34</label>
+          <label><input type="radio" name="age" value="35~39">35~39</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-title">3. 하루 평균 콘텐츠 이용 시간<span class="required">*</span></div>
+        <div class="options">
+          <label><input type="radio" name="usageTime" value="30분 미만">30분 미만</label>
+          <label><input type="radio" name="usageTime" value="30분~1시간">30분~1시간</label>
+          <label><input type="radio" name="usageTime" value="1~2시간">1~2시간</label>
+          <label><input type="radio" name="usageTime" value="2시간 이상">2시간 이상</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-title">4. 주로 이용하는 정보 채널 (복수응답)<span class="required">*</span></div>
+        <div class="options">
+          <label><input type="checkbox" name="channels" value="유튜브">유튜브</label>
+          <label><input type="checkbox" name="channels" value="네이버 등 포털">네이버 등 포털</label>
+          <label><input type="checkbox" name="channels" value="인스타그램·SNS">인스타그램·SNS</label>
+          <label><input type="checkbox" name="channels" value="온라인 커뮤니티">온라인 커뮤니티</label>
+          <label><input type="checkbox" name="channels" value="언론사 앱">언론사 앱</label>
+          <label><input type="checkbox" name="channels" value="방송">방송</label>
+          <label><input type="checkbox" name="channels" value="기타 사이트">기타 사이트</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Ⅱ. 확증편향 경험</div>
+      <div class="q">
+        <div class="q-title">5. 최근 1개월 내, 사회적 이슈에 대해 반대 진영의 콘텐츠(기사, 영상, SNS 게시물, 댓글 등)를 접했을 때 '가짜뉴스'나 '왜곡된 정보'라고 먼저 생각한 경험의 빈도는?<span class="required">*</span></div>
+        <div class="options">
+          <label><input type="radio" name="q5" value="2회 미만">2회 미만</label>
+          <label><input type="radio" name="q5" value="2~5회">2~5회</label>
+          <label><input type="radio" name="q5" value="5~10회">5~10회</label>
+          <label><input type="radio" name="q5" value="10회 이상">10회 이상</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Ⅲ. 미디어 소비 성향 (전혀 아니다 ~ 매우 그렇다)</div>
+      <div id="section3"></div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Ⅳ. 반박 정보 탐색 장벽</div>
+      <div id="section4"></div>
+
+      <div class="q">
+        <div class="q-title">14. (13번 관련) 어려움을 느낀 이유는 무엇입니까? (복수응답)</div>
+        <div class="options">
+          <label><input type="checkbox" name="q14" value="검색이 번거로워서">검색이 번거로워서</label>
+          <label><input type="checkbox" name="q14" value="어떤 키워드로 찾아야 할지 몰라서">어떤 키워드로 찾아야 할지 몰라서</label>
+          <label><input type="checkbox" name="q14" value="반대 시각 기사 자체가 적어서">반대 시각 기사 자체가 적어서</label>
+          <label><input type="checkbox" name="q14" value="시간이 부족해서">시간이 부족해서</label>
+          <label><input type="checkbox" name="q14" value="필요성을 못 느껴서">필요성을 못 느껴서</label>
+          <label><input type="checkbox" name="q14" value="반대 의견을 보면 스트레스 받아서">반대 의견을 보면 스트레스 받아서</label>
+          <label><input type="checkbox" name="q14" value="기타">기타</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="error" id="errorMsg">필수 문항에 모두 답해주세요.</div>
+    <button class="submit-btn" id="submitBtn" onclick="submitForm()">제출하기</button>
+  </div>
+
+  <div class="container thanks" id="thanksWrap" style="display:none;">
+    <h2>🫧 응답해주셔서 감사합니다!</h2>
+    <p>소중한 답변이 잘 저장되었어요.</p>
+  </div>
+
+  <!-- 숨겨진 폼 + iframe: CORS를 타지 않는 일반 폼 전송 방식으로 제출 -->
+  <form id="hiddenForm" method="POST" target="hiddenFrame" style="display:none;">
+    <input type="hidden" name="payload" id="payloadInput">
+  </form>
+  <iframe name="hiddenFrame" id="hiddenFrame" style="display:none;"></iframe>
+
+<script>
+  // ▼▼ Apps Script 배포 후 나온 웹 앱 URL(.../exec)을 여기에 붙여넣으세요 ▼▼
+  var API_URL = 'PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
+  document.getElementById('hiddenForm').action = API_URL;
+
+  var likertItems3 = [
+    ['q6', '6. 나는 뉴스를 볼 때 여러 언론사의 기사를 비교해서 보는 편이다.'],
+    ['q7', '7. 나는 내 입장과 일치하는 관점의 글을 우선적으로 클릭하는 편이다.'],
+    ['q8', '8. 나는 알고리즘이 추천하는 콘텐츠를 별다른 의심 없이 받아들이는 편이다.'],
+    ['q9', '9. 나는 논쟁적 이슈에 대해 상반된 시각을 의도적으로 찾아보려 노력한다.'],
+    ['q10', '10. 나는 댓글이나 커뮤니티 반응을 보고 사건에 대한 판단을 내리는 경우가 있다.'],
+    ['q11', '11. 나는 내 생각과 다른 기사를 접하면 끝까지 읽지 않고 이탈하는 편이다.']
+  ];
+  var likertItems4 = [
+    ['q12', '12. SNS나 유튜브 댓글 등에서 한쪽으로 치우친 주장을 봤지만, 이를 반박하는 정보를 찾아보는 게 귀찮아서 그냥 넘어간 적이 있다.'],
+    ['q13', '13. 나와 반대되는 의견의 기사를 찾으려고 시도했지만 어려움을 겪은 적이 있다.']
+  ];
+  var scaleLabels = ['전혀 아니다', '아니다', '보통이다', '그렇다', '매우 그렇다'];
+
+  function buildLikert(container, items) {
+    items.forEach(function (item) {
+      var name = item[0], title = item[1];
+      var q = document.createElement('div');
+      q.className = 'q';
+      var qt = document.createElement('div');
+      qt.className = 'q-title';
+      qt.innerHTML = title + '<span class="required">*</span>';
+      q.appendChild(qt);
+      var row = document.createElement('div');
+      row.className = 'scale-row';
+      for (var i = 1; i <= 5; i++) {
+        var cell = document.createElement('div');
+        cell.className = 'scale-item';
+        var label = document.createElement('label');
+        var input = document.createElement('input');
+        input.type = 'radio'; input.name = name; input.value = i;
+        label.appendChild(input);
+        var span = document.createElement('span');
+        span.textContent = (i === 1 || i === 5) ? scaleLabels[i - 1] : i;
+        label.appendChild(span);
+        cell.appendChild(label);
+        row.appendChild(cell);
+      }
+      q.appendChild(row);
+      container.appendChild(q);
+    });
+  }
+
+  buildLikert(document.getElementById('section3'), likertItems3);
+  buildLikert(document.getElementById('section4'), likertItems4);
+
+  function submitForm() {
+    var data = {};
+    var requiredSingle = ['gender', 'age', 'usageTime', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13'];
+    var missing = false;
+
+    requiredSingle.forEach(function (name) {
+      var checked = document.querySelector('input[name="' + name + '"]:checked');
+      if (!checked) missing = true;
+      data[name] = checked ? checked.value : '';
+    });
+
+    data.channels = Array.from(document.querySelectorAll('input[name="channels"]:checked')).map(function (el) { return el.value; });
+    if (data.channels.length === 0) missing = true;
+
+    data.q14 = Array.from(document.querySelectorAll('input[name="q14"]:checked')).map(function (el) { return el.value; });
+
+    if (missing) {
+      document.getElementById('errorMsg').style.display = 'block';
+      window.scrollTo(0, 0);
+      return;
+    }
+    document.getElementById('errorMsg').style.display = 'none';
+
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = '제출 중...';
+
+    document.getElementById('payloadInput').value = JSON.stringify(data);
+
+    var done = false;
+    var showThanks = function () {
+      if (done) return;
+      done = true;
+      document.getElementById('formWrap').style.display = 'none';
+      document.getElementById('thanksWrap').style.display = 'block';
+    };
+
+    document.getElementById('hiddenFrame').onload = showThanks;
+    document.getElementById('hiddenForm').submit();
+
+    // 안전장치: 일부 브라우저는 iframe onload가 늦거나 안 뜰 수 있어 6초 후엔 그냥 완료 처리
+    setTimeout(showThanks, 6000);
+  }
+</script>
+</body>
+</html>
